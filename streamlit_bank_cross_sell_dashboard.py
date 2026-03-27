@@ -388,14 +388,14 @@ st.caption(
 file_paths = get_repo_file_paths()
 missing_files = validate_repo_files(file_paths)
 
-with st.sidebar:
+"""with st.sidebar:
     st.header("Repo Data Sources")
     st.write("The dashboard reads the challenge files directly from the `files/` folder in the repo.")
     for filename, desc in REQUIRED_FILES.items():
         status = "✅ Found" if filename not in missing_files else "❌ Missing"
         st.write(f"**{filename}** — {status}")
         st.caption(desc)
-
+"""
     st.header("Model Settings")
     n_folds = st.slider("CV folds", min_value=3, max_value=7, value=5, step=1)
     n_rounds = st.slider("Boosting rounds", min_value=200, max_value=2000, value=1000, step=100)
