@@ -217,8 +217,6 @@ def prepare_features(customers, products, digital, train_labels=None, eval_ids=N
         global_state_mean = float(train_labels["adopted_new_product"].mean())
         df = df.merge(state_means, on="state", how="left")
         df["state_adopt_rate"] = df["state_adopt_rate"].fillna(global_state_mean)
-    else:
-        df["state_adopt_rate"] = np.nan
 
     base_features = [
         "annual_income",
@@ -402,12 +400,8 @@ with st.sidebar:
     n_folds = st.slider("CV folds", min_value=3, max_value=7, value=5, step=1)
     n_rounds = st.slider("Boosting rounds", min_value=200, max_value=2000, value=1000, step=100)
     early_stop = st.slider("Early stopping rounds", min_value=20, max_value=200, value=50, step=10)
-    learning_rate = st.select_slider(
-        "Learning rate", options=[0.03, 0.05, 0.07, 0.1], value=0.05
-    )
-    num_leaves = st.select_slider(
-        "Num leaves", options=[31, 63, 127, 255], value=127
-    )
+    learning_rate = st.select_slider("Learning rate", options=[0.03, 0.05, 0.07, 0.1], value=0.05)
+    num_leaves = st.select_slider("Num leaves", options=[31, 63, 127, 255], value=127)
 
 if not get_lightgbm_available():
     st.error("LightGBM is not installed. Run `pip install lightgbm` before starting the dashboard.")
@@ -508,9 +502,7 @@ with ranking_tab:
         states = sorted([s for s in ranked_customers["state"].dropna().unique().tolist()])
         selected_states = st.multiselect("State filter", states)
         high_value_only = st.checkbox("High-value customers only", value=False)
-        top_cut = st.number_input(
-            "Rows to display", min_value=25, max_value=5000, value=250, step=25
-        )
+        top_cut = st.number_input("Rows to display", min_value=25, max_value=5000, value=250, step=25)
 
     filtered = ranked_customers[ranked_customers["adoption_probability"] >= min_prob].copy()
     if selected_states:
