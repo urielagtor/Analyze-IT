@@ -189,7 +189,7 @@ def prepare_dashboard_data(customers, products, digital, train_labels, eval_ids,
 
 
 st.title("🏦 Bank Cross-Sell Recommendation Dashboard")
-st.caption("This dashboard uses the precomputed submission.csv ranking and enriches it with the same customer-level features used in the starter workflow. No model training runs in the app.")
+st.caption("Prepared by Team 39")
 
 file_paths = get_repo_file_paths()
 missing_files = validate_repo_files(file_paths)
